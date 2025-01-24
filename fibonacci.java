@@ -1,11 +1,11 @@
-import java.math.BigInteger;
 import java.util.Scanner;
 import java.util.HashMap;
+import java.math.BigInteger;
 
 public class Fibonacci {
 
-    // Mapa para armazenar os resultados já calculados (com BigInteger)
-    private static HashMap<Integer, BigInteger> memo = new HashMap<>();
+    // Mapa para armazenar os resultados já calculados com Long como chave e BigInteger como valor
+    private static HashMap<Long, BigInteger> memo = new HashMap<>();
 
     /**
      * Calcula o número na posição especificada da série de Fibonacci de forma iterativa.
@@ -15,18 +15,19 @@ public class Fibonacci {
      * @throws IllegalArgumentException Se a entrada for um número negativo.
      */
     public static BigInteger fibonacciIterative(long number) {
+        // Validando a entrada do número
         validateFibonacciInput(number);
-        
+
         // Caso Base (numero = 0 ou numero = 1)
         if (number == 0) {
             return BigInteger.ZERO;
         } else if (number == 1) {
             return BigInteger.ONE;
         } else {
-            // Para lidar com valores grandes
+            // Caso n > 1, declarando variaveis prev e curr como BigInteger para lidar com valores muito grandes
             BigInteger prev = BigInteger.ZERO, curr = BigInteger.ONE;
 
-            // Iteração para calcular o número na posição especificada
+            // Iterando cada valor até chegar ao 
             for (long i = 2; i <= number; i++) {
                 BigInteger next = prev.add(curr);
                 prev = curr;
@@ -47,8 +48,8 @@ public class Fibonacci {
         validateFibonacciInput(number);
 
         // Se já foi calculado, retorna o resultado armazenado
-        if (memo.containsKey((int)number)) {
-            return memo.get((int)number);
+        if (memo.containsKey(number)) {
+            return memo.get(number);
         }
 
         // Caso base, n = 0 ou n = 1
@@ -59,8 +60,9 @@ public class Fibonacci {
         } else {
             // Caso n > 1, realiza chamadas recursivas até achar o resultado
             BigInteger result = fibonacciRecursive(number - 1).add(fibonacciRecursive(number - 2));
+            
             // Armazena o resultado calculado no mapa de memorização
-            memo.put((int)number, result);
+            memo.put(number, result);
             return result;
         }
     }
@@ -78,31 +80,11 @@ public class Fibonacci {
     }
 
     public static void main(String[] args) {
-        // Testes com entradas inválidas
-        try {
-            System.out.println(fibonacciIterative(-1)); 
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-
-        try {
-            System.out.println(fibonacciRecursive(-1)); 
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-
-        // Testes com entradas válidas
-        System.out.println(fibonacciIterative(0)); 
-        System.out.println(fibonacciRecursive(1)); 
-        System.out.println(fibonacciIterative(5));
-        System.out.println(fibonacciRecursive(5)); 
-        System.out.println(fibonacciIterative(10));
-        System.out.println(fibonacciRecursive(10)); 
-
         // Teste para calcular os números de Fibonacci, recebendo um número de entrada do usuário e tratando
         // exceções de argumentos inválidos
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.print("Digite um número inteiro para calcular o valor de Fibonacci correspondente: ");
+
             long userNumber = scanner.nextLong();
             try {
                 System.out.println("Fibonacci Iterativa: " + fibonacciIterative(userNumber));
