@@ -16,6 +16,5 @@ Para executar o programa em sua máquina local, siga os passos abaixo:
 
 1. Clone o repositório.
 2. Navegue até o repositório usando o terminal.
-3. Compile os arquivos Java:
-4. Execute os programas
+3. Execute os programas
    
