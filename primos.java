@@ -4,16 +4,17 @@ import java.util.List;
 public class Primos {
 
     /**
-     * Lista todos os números primos entre 1 e o número especificado (inclusivo).
+     * Lista todos os números primos entre 1 e o número especificado (incluso).
      *
      * @param number O número até o qual os primos serão encontrados (deve ser positivo).
      * @return Uma lista contendo todos os números primos entre 1 e o número especificado.
      */
     public static List<Integer> listarPrimos(int number) {
+        // Retorna lista vazia se o número for menor que 1
         if (number < 1) {
-            return new ArrayList<>(); // Retorna lista vazia se o número for menor que 1
+            return new ArrayList<>();
         }
-
+        
         // Inicia a lista de primos vazia, e itera por todos os valores de 2 a n procurando por primos
         List<Integer> primos = new ArrayList<>();
         for (int i = 2; i <= number; i++) {
@@ -31,11 +32,12 @@ public class Primos {
      * @return Uma lista contendo todos os números primos entre 1 e o número especificado.
      */
     public static List<Integer> iniciarListagemPrimosRec(int number) {
-        return listarPrimosRec(number, new ArrayList<>(), 2); // Inicializa a lista e começa de 2
+        // Inicializa a lista de primos vazia e com o numero atual sendo igual a 2
+        return listarPrimosRec(number, new ArrayList<>(), 2); 
     }
 
     /**
-     * Lista todos os números primos entre 1 e o número especificado (inclusivo) de forma recursiva.
+     * Lista todos os números primos entre 1 e o número especificado (incluso) de forma recursiva.
      *
      * @param number O número até o qual os primos serão encontrados (deve ser positivo).
      * @param primos A lista de números primos encontrados até agora.
@@ -43,21 +45,22 @@ public class Primos {
      * @return Uma lista contendo todos os números primos entre 1 e o número especificado.
      */
     public static List<Integer> listarPrimosRec(int number, List<Integer> primos, int current) {
+        // Retorna lista vazia se o número for menor que 1
         if (number < 1) {
-            return primos; // Retorna lista vazia se o número for menor que 1
+            return primos; 
         }
 
-        // Caso base: se o número atual ultrapassar o limite, retorna a lista.
+        // Se o número atual ultrapassar o limite, retorna a lista.
         if (current > number) {
             return primos;
         }
 
-        // Adiciona à lista se for primo.
+        // Adiciona à lista se for primo
         if (isPrime(current)) {
             primos.add(current);
         }
 
-        // Chamada recursiva para o próximo número.
+        // Chama recursivamente para o próximo número da sequência
         return listarPrimosRec(number, primos, current + 1);
     }
 
@@ -72,7 +75,8 @@ public class Primos {
         if (number == 2) return true;
         if (number <= 1 || number % 2 == 0) return false;
 
-        // Verifica divisores entre 2 e a raiz quadrada do número, para os números ímpares
+        // Itera sobre os impares entre a raiz do numero atual e 3, verificando se o número em questão é divisivel por algum deles
+        // Retornando false se algum número entre o intervalo dividir o número atual
         int limit = (int) Math.sqrt(number);
         for (int i = 3; i <= limit; i += 2) {
             if (number % i == 0) return false;
