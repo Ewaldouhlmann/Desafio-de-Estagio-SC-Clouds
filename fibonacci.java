@@ -9,13 +9,18 @@ public class Fibonacci {
      */
     public static int fibonacciIterative(int number) {
         validateFibonacciInput(number);
-
+        // Caso Base (numero = 0 ou numero = 1)
         if (number == 0) {
             return 0;
         } else if (number == 1) {
             return 1;
         } else {
+            // Caso n > 1
+
+            // Inicialização dos primeiros valores da serie
             int prev = 0, curr = 1;
+
+            // Iteração para calcular o número na posição especificada
             for (int i = 2; i <= number; i++) {
                 int next = prev + curr;
                 prev = curr;
@@ -34,12 +39,13 @@ public class Fibonacci {
      */
     public static int fibonacciRecursive(int number) {
         validateFibonacciInput(number);
-
+        // Caso base, n = 0 ou n = 1
         if (number == 0) {
             return 0;
         } else if (number == 1) {
             return 1;
         } else {
+            // Caso n > 1, realiza chamadas recursivas até achar o resultado
             return fibonacciRecursive(number - 1) + fibonacciRecursive(number - 2);
         }
     }
@@ -57,25 +63,25 @@ public class Fibonacci {
     }
 
     public static void main(String[] args) {
+        // Testes com entradas inválidas
         try {
-            // Testes com entradas inválidas
-            System.out.println(fibonacciIterative(-1)); // Deve lançar exceção
+            System.out.println(fibonacciIterative(-1)); 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
 
         try {
-            System.out.println(fibonacciRecursive(-1)); // Deve lançar exceção
+            System.out.println(fibonacciRecursive(-1)); 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
 
         // Testes com entradas válidas
-        System.out.println(fibonacciIterative(0));  // 0
-        System.out.println(fibonacciRecursive(1)); // 1
-        System.out.println(fibonacciIterative(5)); // 5
-        System.out.println(fibonacciRecursive(5)); // 5
-        System.out.println(fibonacciIterative(10)); // 55
-        System.out.println(fibonacciRecursive(10)); // 55
+        System.out.println(fibonacciIterative(0)); 
+        System.out.println(fibonacciRecursive(1)); 
+        System.out.println(fibonacciIterative(5));
+        System.out.println(fibonacciRecursive(5)); 
+        System.out.println(fibonacciIterative(10));
+        System.out.println(fibonacciRecursive(10)); 
     }
 }

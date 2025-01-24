@@ -12,6 +12,8 @@ public class Primos {
      */
     public static List<Integer> listarPrimos(int number) {
         validateInput(number);
+
+        // Inicia a lista de primos vazia, e itera por todos os valores de 2 a n procurando por primos
         List<Integer> primos = new ArrayList<>();
         for (int i = 2; i <= number; i++) {
             if (isPrime(i)) {
@@ -56,10 +58,11 @@ public class Primos {
      * @return `true` se o número for primo, caso contrário `false`.
      */
     public static boolean isPrime(int number) {
+        // 2 é único número primo par, retorna true para 2 e false para outros pares
         if (number == 2) return true;
         if (number <= 1 || number % 2 == 0) return false;
 
-        // Verifica divisores entre 2 e a raiz quadrada do número.
+        // Verifica divisores entre 2 e a raiz quadrada do número, para os números ímpares
         int limit = (int) Math.sqrt(number);
         for (int i = 3; i <= limit; i += 2) {
             if (number % i == 0) return false;
@@ -86,7 +89,7 @@ public class Primos {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-
+        
         try {
             System.out.println(listarPrimos(-10));
         } catch (IllegalArgumentException e) {
