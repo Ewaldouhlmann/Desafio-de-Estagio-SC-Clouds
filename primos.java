@@ -8,10 +8,11 @@ public class Primos {
      *
      * @param number O número até o qual os primos serão encontrados (deve ser positivo).
      * @return Uma lista contendo todos os números primos entre 1 e o número especificado.
-     * @throws IllegalArgumentException Se o número for menor que 1.
      */
     public static List<Integer> listarPrimos(int number) {
-        validateInput(number);
+        if (number < 1) {
+            return new ArrayList<>(); // Retorna lista vazia se o número for menor que 1
+        }
 
         // Inicia a lista de primos vazia, e itera por todos os valores de 2 a n procurando por primos
         List<Integer> primos = new ArrayList<>();
@@ -24,17 +25,26 @@ public class Primos {
     }
 
     /**
+     * Função que inicializa as variáveis necessárias e chama a função recursiva que encontra os primos menores ou iguais a n
+     *
+     * @param number O número até o qual os primos serão encontrados (deve ser positivo).
+     * @return Uma lista contendo todos os números primos entre 1 e o número especificado.
+     */
+    public static List<Integer> iniciarListagemPrimosRec(int number) {
+        return listarPrimosRec(number, new ArrayList<>(), 2); // Inicializa a lista e começa de 2
+    }
+
+    /**
      * Lista todos os números primos entre 1 e o número especificado (inclusivo) de forma recursiva.
      *
      * @param number O número até o qual os primos serão encontrados (deve ser positivo).
      * @param primos A lista de números primos encontrados até agora.
      * @param current O número atual sendo verificado (começa em 2).
      * @return Uma lista contendo todos os números primos entre 1 e o número especificado.
-     * @throws IllegalArgumentException Se o número for menor que 1.
      */
     public static List<Integer> listarPrimosRec(int number, List<Integer> primos, int current) {
-        if (current == 2) {
-            validateInput(number);
+        if (number < 1) {
+            return primos; // Retorna lista vazia se o número for menor que 1
         }
 
         // Caso base: se o número atual ultrapassar o limite, retorna a lista.
@@ -70,36 +80,15 @@ public class Primos {
         return true;
     }
 
-    /**
-     * Valida se o número fornecido é um inteiro positivo.
-     *
-     * @param number O número a ser validado.
-     * @throws IllegalArgumentException Se o número não for um inteiro positivo.
-     */
-    public static void validateInput(int number) {
-        if (number < 1) {
-            throw new IllegalArgumentException("O número deve ser um inteiro positivo.");
-        }
-    }
-
     public static void main(String[] args) {
         // Testando valores inválidos
-        try {
-            System.out.println(listarPrimos(0));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        
-        try {
-            System.out.println(listarPrimos(-10));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println(listarPrimos(0)); 
+        System.out.println(listarPrimos(-10)); 
 
         // Testando a função iterativa
-        System.out.println(listarPrimos(10)); // [2, 3, 5, 7]
+        System.out.println(listarPrimos(100)); 
 
-        // Testando a função recursiva
-        System.out.println(listarPrimosRec(10, new ArrayList<>(), 2)); // [2, 3, 5, 7]
+        // Testando a função recursiva com inicialização separada
+        System.out.println(iniciarListagemPrimosRec(100)); 
     }
 }
